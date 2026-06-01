@@ -137,7 +137,7 @@ INSERT INTO Series (series_name, series_desc) VALUES
 -- series how the class is written.  
 -- -----------------------------------------------------------------------------
 
-INSERT INTO Class (class_name, class_type) VALUES
+INSERT INTO Class (class_name, class_class) VALUES
     ('Women',           'Women'),
     ('Women 13+',       'Women'),
     ('Women 12+',       'Women'),
