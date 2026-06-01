@@ -1,0 +1,55 @@
+Conceptual Data Model
+
+Purpose:
+This database captures dirt bike racing results across multiple race series in Western New York. It is designed to track racer performance over time, across events, classes, and series, wherever Amy Masters has raced and that class. Races include motocross and harescramble formats.
+
+Entities and Descriptions: 
+identity			Descriptions		
+Racer               Person competiting in the race event on a dirt bike. 
+Event				A race at a specific venue on a specific date.
+Series				Collection of events organzied under one sanctioning body
+Class				Registration cateogory based on gender/age/skill level
+Results				Recorded outcome of the racer competing in an event.
+
+
+Relationships: 
+Racer — Result
+A racer can have many results during there career. Each result belongs to one racer.
+One Racer to Many Results 
+
+Event — Result
+An event produces many results across all classes and racers. Each result belongs to one event.
+One Event to Many Results
+
+Class — Result
+A class can have many results within an event. Each result belongs to one class.
+One Class to Many Results
+
+Series — Event
+A series is made up of many events throughout a season. Each event belongs to one series.
+One Series to Many Events
+
+
+Business Rules:
+A racer may compete in multiple series in the same season
+A racer may compete in one class at a single event
+An event always belongs to exactly one series
+A result must have a racer, an event, and a class to be valid
+Place is recorded as a number or DNF (Did Not Finish)
+A racer's bike brand and number may change between events
+
+
+Out of Scope:
+The following are not included in this model:
+
+Lap by lap timing details
+Racer age or license information
+Financial or entry fee data
+Team or sponsor information
+
+
+Assumptions:
+
+Racer identity is determined by name and hometown
+Events are uniquely identified by series, venue, and date
+Historical data spans 2019 through 2024
