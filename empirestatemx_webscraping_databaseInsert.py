@@ -277,9 +277,9 @@ try:
     cur  = conn.cursor()
     print("Connected.\n")
 
-    cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
-    cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
-    print("Results and Racer tables cleared.\n")
+   #cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
+   #cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
+   #print("Results and Racer tables cleared.\n")
 
     insert_results(
         cur, df_women,
