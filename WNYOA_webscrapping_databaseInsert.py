@@ -99,31 +99,34 @@ def get_or_create_class(cur, class_name, class_type):
     )
     return cur.fetchone()[0]
 
-def get_or_create_racer(cur, name, number, brand):
+def get_or_create_racer(cur, name, city, state, brand):
+    # Name always stored as UPPERCASE for consistency
+    name = name.strip().upper()
     cur.execute("SELECT racer_id FROM racer WHERE racer_name = %s", (name,))
     row = cur.fetchone()
     if row:
         return row[0]
     cur.execute(
-        """INSERT INTO racer (racer_name, racer_number, racer_bike)
-           VALUES (%s, %s, %s) RETURNING racer_id""",
+        """INSERT INTO racer (racer_name, racer_city, racer_state, racer_bike)
+           VALUES (%s, %s, %s, %s) RETURNING racer_id""",
         (
             name,
-            number if number else None,
-            brand  if brand  else None
+            city  if city  else None,
+            state if state else None,
+            brand if brand else None
         )
     )
     return cur.fetchone()[0]
 
 def insert_result(cur, record, series_id, event_id, class_id):
-    name   = record.get("Name",   "").strip()
-    number = record.get("Nbr",    "").strip()
-    brand  = record.get("Brand",  "").strip() or None
+    name   = record.get("Name",  "").strip().upper()
+    number = record.get("Nbr",   "").strip()
+    brand  = record.get("Brand", "").strip() or None
 
     if not name:
         return
 
-    racer_id = get_or_create_racer(cur, name, number, brand)
+    racer_id = get_or_create_racer(cur, name, None, "NY", brand)
 
     place = record.get("Class Finish", "").strip()
     try:
@@ -165,9 +168,9 @@ try:
     cur  = conn.cursor()
     print("Connected.\n")
 
-  #  cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
-  #  cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
-  #  print("Results and Racer tables cleared.\n")
+    # cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
+    # cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
+    # print("Results and Racer tables cleared.\n")
 
     for YEAR in YEARS:
         BASE_URL    = f"https://www.xcracing.com/wnyoa/archive/{YEAR}"
@@ -285,7 +288,7 @@ try:
                 nbr     = parts[2] if len(parts) > 2 else ""
 
                 name_tag = row.find("a", href=lambda h: h and "racer.asp" in h)
-                name = name_tag.get_text(strip=True) if name_tag else ""
+                name = name_tag.get_text(strip=True).upper() if name_tag else ""
 
                 record = {
                     "Class Finish": place,
