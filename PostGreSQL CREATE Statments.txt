@@ -76,7 +76,6 @@ CREATE TABLE Class (
 CREATE TABLE Racer (
     racer_id        SERIAL PRIMARY KEY,
     racer_name            VARCHAR(100) NOT NULL,
-    racer_number          VARCHAR(20),
     racer_city        VARCHAR(100),
     racer_state           VARCHAR(50),
     racer_bike           VARCHAR(50)  
@@ -101,8 +100,8 @@ CREATE TABLE Results (
     laps            INT,
     finish_time     VARCHAR(20),   
     points_earned   INT,
-    brand           VARCHAR(50),
-    number          VARCHAR(20)
+    brand           VARCHAR(50)
+    
 );
 
 -- -----------------------------------------------------------------------------
