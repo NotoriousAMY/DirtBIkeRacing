@@ -25,8 +25,7 @@ TABLE Class
 
  TABLE Racer 
     racer_id        Primary key
-    racer_name      
-    racer_number    
+    racer_name        
     racer_city      
     racer_state     
     racer_bike        
@@ -44,7 +43,7 @@ TABLE Results
     finish_time        
     points_earned   
     brand           
-    number          
+  
 
 
 
