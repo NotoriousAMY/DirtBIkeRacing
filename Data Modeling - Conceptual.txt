@@ -36,7 +36,7 @@ A racer may compete in one class at a single event
 An event always belongs to exactly one series
 A result must have a racer, an event, and a class to be valid
 Place is recorded as a number or DNF (Did Not Finish)
-A racer's bike brand and number may change between events
+A racer's bike brand may change between events
 
 
 Out of Scope:
