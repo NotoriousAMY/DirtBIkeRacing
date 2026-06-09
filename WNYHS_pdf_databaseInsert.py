@@ -29,14 +29,14 @@ EVENTS = [
         "name":     "WNYHS Pavilion",
         "location": "Covington, NY",
         "fallback": [
-            {"Place": "1",   "Number": "5010", "Name": "Erin Harper",          "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "6", "Time": "02:01:57"},
-            {"Place": "2",   "Number": "5006", "Name": "Emily Warfale",        "Location": "Milport, NY",        "Brand": "HON", "Laps": "6", "Time": "02:11:39"},
-            {"Place": "3",   "Number": "5008", "Name": "Destrie Dieteman",     "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "6", "Time": "02:11:55"},
-            {"Place": "4",   "Number": "5007", "Name": "Amy Masters",          "Location": "Irving, NY",         "Brand": "HUS", "Laps": "5", "Time": "01:58:09"},
-            {"Place": "5",   "Number": "5009", "Name": "Annaleise Geisinger",  "Location": "Sayre, PA",          "Brand": "YAM", "Laps": "4", "Time": "02:00:42"},
-            {"Place": "6",   "Number": "5005", "Name": "Kelsey Murdock",       "Location": "Groton, NY",         "Brand": "KTM", "Laps": "2", "Time": "01:01:20"},
-            {"Place": "7",   "Number": "6001", "Name": "Karyn Lachut",         "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "2", "Time": "49:24:24"},
-            {"Place": "DNF", "Number": "5001", "Name": "Laura Nutter",         "Location": "Penfield, NY",       "Brand": "YAM", "Laps": "0", "Time": "00:00:00"},
+            {"Place": "1",   "Number": "5010", "Name": "ERIN HARPER",          "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "6", "Time": "02:01:57"},
+            {"Place": "2",   "Number": "5006", "Name": "EMILY WARFALE",        "Location": "Milport, NY",        "Brand": "HON", "Laps": "6", "Time": "02:11:39"},
+            {"Place": "3",   "Number": "5008", "Name": "DESTRIE DIETEMAN",     "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "6", "Time": "02:11:55"},
+            {"Place": "4",   "Number": "5007", "Name": "AMY MASTERS",          "Location": "Irving, NY",         "Brand": "HUS", "Laps": "5", "Time": "01:58:09"},
+            {"Place": "5",   "Number": "5009", "Name": "ANNALEISE GEISINGER",  "Location": "Sayre, PA",          "Brand": "YAM", "Laps": "4", "Time": "02:00:42"},
+            {"Place": "6",   "Number": "5005", "Name": "KELSEY MURDOCK",       "Location": "Groton, NY",         "Brand": "KTM", "Laps": "2", "Time": "01:01:20"},
+            {"Place": "7",   "Number": "6001", "Name": "KARYN LACHUT",         "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "2", "Time": "49:24:24"},
+            {"Place": "DNF", "Number": "5001", "Name": "LAURA NUTTER",         "Location": "Penfield, NY",       "Brand": "YAM", "Laps": "0", "Time": "00:00:00"},
         ]
     },
     {
@@ -45,15 +45,15 @@ EVENTS = [
         "name":     "WNYHS Area 51",
         "location": "Batavia, NY",
         "fallback": [
-            {"Place": "1", "Number": "5010", "Name": "Erin Harper",          "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "6", "Time": "02:17:37"},
-            {"Place": "2", "Number": "5012", "Name": "Carley Fenner",        "Location": "",                   "Brand": "KAW", "Laps": "6", "Time": "02:17:40"},
-            {"Place": "3", "Number": "5006", "Name": "Emily Warfale",        "Location": "Milport, NY",        "Brand": "HON", "Laps": "6", "Time": "02:17:50"},
-            {"Place": "4", "Number": "5008", "Name": "Destrie Dieteman",     "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "5", "Time": "02:06:51"},
-            {"Place": "5", "Number": "5007", "Name": "Amy Masters",          "Location": "Irving, NY",         "Brand": "HUS", "Laps": "5", "Time": "02:11:43"},
-            {"Place": "6", "Number": "5011", "Name": "Cali Dart",            "Location": "Hollow Spethport, F","Brand": "HUS", "Laps": "5", "Time": "02:14:28"},
-            {"Place": "7", "Number": "5005", "Name": "Kelsey Murdock",       "Location": "Groton, NY",         "Brand": "KTM", "Laps": "5", "Time": "02:16:34"},
-            {"Place": "8", "Number": "5009", "Name": "Annaleise Geisinger",  "Location": "Sayre, PA",          "Brand": "KAW", "Laps": "4", "Time": "02:02:06"},
-            {"Place": "9", "Number": "5003", "Name": "Karyn Lachut",         "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "3", "Time": "01:49:16"},
+            {"Place": "1", "Number": "5010", "Name": "ERIN HARPER",          "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "6", "Time": "02:17:37"},
+            {"Place": "2", "Number": "5012", "Name": "CARLEY FENNER",        "Location": "",                   "Brand": "KAW", "Laps": "6", "Time": "02:17:40"},
+            {"Place": "3", "Number": "5006", "Name": "EMILY WARFALE",        "Location": "Milport, NY",        "Brand": "HON", "Laps": "6", "Time": "02:17:50"},
+            {"Place": "4", "Number": "5008", "Name": "DESTRIE DIETEMAN",     "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "5", "Time": "02:06:51"},
+            {"Place": "5", "Number": "5007", "Name": "AMY MASTERS",          "Location": "Irving, NY",         "Brand": "HUS", "Laps": "5", "Time": "02:11:43"},
+            {"Place": "6", "Number": "5011", "Name": "CALI DART",            "Location": "Hollow Spethport, F","Brand": "HUS", "Laps": "5", "Time": "02:14:28"},
+            {"Place": "7", "Number": "5005", "Name": "KELSEY MURDOCK",       "Location": "Groton, NY",         "Brand": "KTM", "Laps": "5", "Time": "02:16:34"},
+            {"Place": "8", "Number": "5009", "Name": "ANNALEISE GEISINGER",  "Location": "Sayre, PA",          "Brand": "KAW", "Laps": "4", "Time": "02:02:06"},
+            {"Place": "9", "Number": "5003", "Name": "KARYN LACHUT",         "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "3", "Time": "01:49:16"},
         ]
     },
     {
@@ -62,15 +62,15 @@ EVENTS = [
         "name":     "WNYHS Sick Bros",
         "location": "Cohocton, NY",
         "fallback": [
-            {"Place": "1", "Number": "5010", "Name": "Erin Harper",          "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "6", "Time": "01:50:44"},
-            {"Place": "2", "Number": "5006", "Name": "Emily Warfale",        "Location": "Milport, NY",        "Brand": "HON", "Laps": "6", "Time": "02:02:29"},
-            {"Place": "3", "Number": "5008", "Name": "Destrie Dieteman",     "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "5", "Time": "01:45:13"},
-            {"Place": "4", "Number": "5013", "Name": "Julia Gowka",          "Location": "",                   "Brand": "KAW", "Laps": "5", "Time": "01:47:25"},
-            {"Place": "5", "Number": "5005", "Name": "Kelsey Murdock",       "Location": "Groton, NY",         "Brand": "KTM", "Laps": "5", "Time": "01:50:36"},
-            {"Place": "6", "Number": "5009", "Name": "Annaleise Geisinger",  "Location": "Sayre, PA",          "Brand": "KAW", "Laps": "5", "Time": "01:56:56"},
-            {"Place": "7", "Number": "5007", "Name": "Amy Masters",          "Location": "Irving, NY",         "Brand": "HUS", "Laps": "5", "Time": "01:58:10"},
-            {"Place": "8", "Number": "5011", "Name": "Cali Dart",            "Location": "Hollow Spethport, F","Brand": "HUS", "Laps": "4", "Time": "01:54:26"},
-            {"Place": "9", "Number": "5004", "Name": "Karyn Lachut",         "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "1", "Time": "00:43:24"},
+            {"Place": "1", "Number": "5010", "Name": "ERIN HARPER",          "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "6", "Time": "01:50:44"},
+            {"Place": "2", "Number": "5006", "Name": "EMILY WARFALE",        "Location": "Milport, NY",        "Brand": "HON", "Laps": "6", "Time": "02:02:29"},
+            {"Place": "3", "Number": "5008", "Name": "DESTRIE DIETEMAN",     "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "5", "Time": "01:45:13"},
+            {"Place": "4", "Number": "5013", "Name": "JULIA GOWKA",          "Location": "",                   "Brand": "KAW", "Laps": "5", "Time": "01:47:25"},
+            {"Place": "5", "Number": "5005", "Name": "KELSEY MURDOCK",       "Location": "Groton, NY",         "Brand": "KTM", "Laps": "5", "Time": "01:50:36"},
+            {"Place": "6", "Number": "5009", "Name": "ANNALEISE GEISINGER",  "Location": "Sayre, PA",          "Brand": "KAW", "Laps": "5", "Time": "01:56:56"},
+            {"Place": "7", "Number": "5007", "Name": "AMY MASTERS",          "Location": "Irving, NY",         "Brand": "HUS", "Laps": "5", "Time": "01:58:10"},
+            {"Place": "8", "Number": "5011", "Name": "CALI DART",            "Location": "Hollow Spethport, F","Brand": "HUS", "Laps": "4", "Time": "01:54:26"},
+            {"Place": "9", "Number": "5004", "Name": "KARYN LACHUT",         "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "1", "Time": "00:43:24"},
         ]
     },
     {
@@ -79,19 +79,19 @@ EVENTS = [
         "name":     "WNYHS Palmyra",
         "location": "Palmyra, NY",
         "fallback": [
-            {"Place": "1",   "Number": "1500", "Name": "Mallory Christofferso", "Location": "",                   "Brand": "GG",  "Laps": "5", "Time": "02:17:10"},
-            {"Place": "2",   "Number": "5010", "Name": "Erin Harper",           "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "4", "Time": "01:56:45"},
-            {"Place": "3",   "Number": "5006", "Name": "Emily Warfale",         "Location": "Milport, NY",        "Brand": "HON", "Laps": "4", "Time": "02:05:35"},
-            {"Place": "4",   "Number": "5008", "Name": "Destrie Dieteman",      "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "4", "Time": "02:06:20"},
-            {"Place": "5",   "Number": "5005", "Name": "Kelsey Murdock",        "Location": "Groton, NY",         "Brand": "KTM", "Laps": "4", "Time": "02:10:21"},
-            {"Place": "6",   "Number": "5018", "Name": "Minnie Hansen",         "Location": "",                   "Brand": "KTM", "Laps": "4", "Time": "02:12:00"},
-            {"Place": "7",   "Number": "5017", "Name": "Jessica Krzemien",      "Location": "East Concord, NY",   "Brand": "KTM", "Laps": "4", "Time": "02:22:13"},
-            {"Place": "8",   "Number": "5007", "Name": "Amy Masters",           "Location": "Irving, NY",         "Brand": "HUS", "Laps": "4", "Time": "02:23:12"},
-            {"Place": "9",   "Number": "5011", "Name": "Cali Dart",             "Location": "Hollow Spethport, F","Brand": "HUS", "Laps": "4", "Time": "02:28:08"},
-            {"Place": "10",  "Number": "5014", "Name": "Maude Lizotte",         "Location": "Coaticook, ON",      "Brand": "KTM", "Laps": "3", "Time": "02:02:17"},
-            {"Place": "11",  "Number": "5004", "Name": "Karyn Lachut",          "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "2", "Time": "01:42:10"},
-            {"Place": "12",  "Number": "5016", "Name": "Kristen Heard",         "Location": "Orchard Park, NY",   "Brand": "TM",  "Laps": "1", "Time": "00:41:13"},
-            {"Place": "DNF", "Number": "5009", "Name": "Annaleise Geisinger",   "Location": "Sayre, PA",          "Brand": "KAW", "Laps": "0", "Time": "00:00:00"},
+            {"Place": "1",   "Number": "1500", "Name": "MALLORY CHRISTOFFERSO", "Location": "",                   "Brand": "GG",  "Laps": "5", "Time": "02:17:10"},
+            {"Place": "2",   "Number": "5010", "Name": "ERIN HARPER",           "Location": "St. Catharines, ON", "Brand": "KTM", "Laps": "4", "Time": "01:56:45"},
+            {"Place": "3",   "Number": "5006", "Name": "EMILY WARFALE",         "Location": "Milport, NY",        "Brand": "HON", "Laps": "4", "Time": "02:05:35"},
+            {"Place": "4",   "Number": "5008", "Name": "DESTRIE DIETEMAN",      "Location": "Oneida, NY",         "Brand": "KTM", "Laps": "4", "Time": "02:06:20"},
+            {"Place": "5",   "Number": "5005", "Name": "KELSEY MURDOCK",        "Location": "Groton, NY",         "Brand": "KTM", "Laps": "4", "Time": "02:10:21"},
+            {"Place": "6",   "Number": "5018", "Name": "MINNIE HANSEN",         "Location": "",                   "Brand": "KTM", "Laps": "4", "Time": "02:12:00"},
+            {"Place": "7",   "Number": "5017", "Name": "JESSICA KRZEMIEN",      "Location": "East Concord, NY",   "Brand": "KTM", "Laps": "4", "Time": "02:22:13"},
+            {"Place": "8",   "Number": "5007", "Name": "AMY MASTERS",           "Location": "Irving, NY",         "Brand": "HUS", "Laps": "4", "Time": "02:23:12"},
+            {"Place": "9",   "Number": "5011", "Name": "CALI DART",             "Location": "Hollow Spethport, F","Brand": "HUS", "Laps": "4", "Time": "02:28:08"},
+            {"Place": "10",  "Number": "5014", "Name": "MAUDE LIZOTTE",         "Location": "Coaticook, ON",      "Brand": "KTM", "Laps": "3", "Time": "02:02:17"},
+            {"Place": "11",  "Number": "5004", "Name": "KARYN LACHUT",          "Location": "Vernon, NY",         "Brand": "KTM", "Laps": "2", "Time": "01:42:10"},
+            {"Place": "12",  "Number": "5016", "Name": "KRISTEN HEARD",         "Location": "Orchard Park, NY",   "Brand": "TM",  "Laps": "1", "Time": "00:41:13"},
+            {"Place": "DNF", "Number": "5009", "Name": "ANNALEISE GEISINGER",   "Location": "Sayre, PA",          "Brand": "KAW", "Laps": "0", "Time": "00:00:00"},
         ]
     },
 ]
@@ -127,7 +127,7 @@ def parse_pdf(pdf_path, fallback):
                         rows.append({
                             "Place":    m.group(1),
                             "Number":   m.group(2),
-                            "Name":     m.group(3).strip(),
+                            "Name":     m.group(3).strip().upper(),
                             "Location": m.group(4).strip() if m.group(4) else "",
                             "Brand":    m.group(5),
                             "Laps":     m.group(6),
@@ -199,20 +199,21 @@ def get_or_create_class(cur, class_name, class_type):
     )
     return cur.fetchone()[0]
 
-def get_or_create_racer(cur, name, number, city, state, brand):
+def get_or_create_racer(cur, name, city, state, brand):
+    # Name always stored as UPPERCASE for consistency
+    name = name.strip().upper()
     cur.execute("SELECT racer_id FROM racer WHERE racer_name = %s", (name,))
     row = cur.fetchone()
     if row:
         return row[0]
     cur.execute(
-        """INSERT INTO racer (racer_name, racer_number, racer_city, racer_state, racer_bike)
-           VALUES (%s, %s, %s, %s, %s) RETURNING racer_id""",
+        """INSERT INTO racer (racer_name, racer_city, racer_state, racer_bike)
+           VALUES (%s, %s, %s, %s) RETURNING racer_id""",
         (
             name,
-            number if number else None,
-            city   if city   else None,
-            state  if state  else None,
-            brand  if brand  else None
+            city  if city  else None,
+            state if state else None,
+            brand if brand else None
         )
     )
     return cur.fetchone()[0]
@@ -223,17 +224,15 @@ def get_or_create_racer(cur, name, number, city, state, brand):
 def insert_event_results(cur, rows, event, series_id, event_id, class_id):
     inserted = 0
     for row in rows:
-        name   = row.get("Name",   "").strip()
+        name   = row.get("Name",   "").strip().upper()
         number = row.get("Number", "").strip()
         brand  = row.get("Brand",  "").strip() or None
 
         if not name:
             continue
 
-        # Parse racer city and state from Location field
         racer_city, racer_state = parse_location(row.get("Location", ""))
-
-        racer_id = get_or_create_racer(cur, name, number, racer_city, racer_state, brand)
+        racer_id = get_or_create_racer(cur, name, racer_city, racer_state, brand)
 
         place = row.get("Place", "").strip()
         try:
@@ -281,9 +280,9 @@ try:
     print("Connected.\n")
 
     # Truncate results and racer before reload
-    #cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
-    #cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
-    #print("Results and Racer tables cleared.\n")
+    # cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
+    # cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
+    # print("Results and Racer tables cleared.\n")
 
     series_id = get_or_create_series(cur, "WNYHS", "WNY Fall Hare Scramble Series")
     class_id  = get_or_create_class(cur, "Women", "Women")
@@ -293,13 +292,11 @@ try:
 
         rows = parse_pdf(event["pdf"], event["fallback"])
 
-        # Parse event date
         try:
             event_date = datetime.strptime(event["date"], "%m/%d/%Y").strftime("%Y-%m-%d")
         except ValueError:
             event_date = None
 
-        # Parse event location into city and state
         event_city, event_state = parse_location(event["location"])
 
         event_id = get_or_create_event(
