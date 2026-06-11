@@ -5,11 +5,11 @@ import psycopg2
 import re
 
 # -------------------------------------------------------
-#requests --  fetches the page 
-#BeautifulSoup -- parses the HTML 
-#re -- cleans the messy text (regular expression)
-#pandas -- organizes it into a dataframe 
-#psycopg2 -- loads it into PostgreSQL
+# requests      -- fetches the page
+# BeautifulSoup -- parses the HTML
+# re            -- cleans the messy text (regular expression)
+# pandas        -- organizes it into a dataframe
+# psycopg2      -- loads it into PostgreSQL
 # -------------------------------------------------------
 
 # -------------------------------------------------------
@@ -25,7 +25,8 @@ def load_db_config(filepath):
                 config[key.strip()] = value.strip()
     config["port"] = int(config["port"])
     return config
-#location of db_config file 
+
+# location of db_config file
 DB_CONFIG = load_db_config(r"C:\Users\17163\OneDrive\Documents\DirtBikeRacing\db_config.txt")
 
 HEADERS = {"User-Agent": "Mozilla/5.0"}
@@ -34,6 +35,7 @@ def get_soup(url):
     response = requests.get(url, headers=HEADERS)
     response.encoding = "utf-8"
     return BeautifulSoup(response.text, "html.parser")
+
 # -------------------------------------------------------
 # BeautifulSoup parser - brand from image
 # -------------------------------------------------------
@@ -77,9 +79,9 @@ def parse_results_table(soup):
                 l.strip() for l in tds[2].get_text("\n").split("\n")
                 if l.strip()
             ]
-            name = name_cell_lines[0] if name_cell_lines else ""
+            name = name_cell_lines[0].upper() if name_cell_lines else ""
 
-            if not name or name.upper() in ("NAME", "OVERALL"):
+            if not name or name in ("NAME", "OVERALL"):
                 continue
             if name in seen_names:
                 continue
@@ -174,20 +176,21 @@ def get_or_create_class(cur, class_name, class_type):
     )
     return cur.fetchone()[0]
 
-def get_or_create_racer(cur, name, number, city, state, bike):
+def get_or_create_racer(cur, name, city, state, bike):
+    # Name always stored as UPPERCASE for consistency
+    name = name.strip().upper()
     cur.execute("SELECT racer_id FROM racer WHERE racer_name = %s", (name,))
     row = cur.fetchone()
     if row:
         return row[0]
     cur.execute(
-        """INSERT INTO racer (racer_name, racer_number, racer_city, racer_state, racer_bike)
-           VALUES (%s, %s, %s, %s, %s) RETURNING racer_id""",
+        """INSERT INTO racer (racer_name, racer_city, racer_state, racer_bike)
+           VALUES (%s, %s, %s, %s) RETURNING racer_id""",
         (
             name,
-            number if number and str(number) != "nan" else None,
-            city   if city   and str(city)   != "nan" else None,
-            state  if state  and str(state)  != "nan" else None,
-            bike   if bike   and str(bike)   != "nan" else None
+            city  if city  and str(city)  != "nan" else None,
+            state if state and str(state) != "nan" else None,
+            bike  if bike  and str(bike)  != "nan" else None
         )
     )
     return cur.fetchone()[0]
@@ -205,8 +208,8 @@ def insert_results(cur, df, series_name, series_desc,
 
     inserted = 0
     for _, row in df.iterrows():
-        name  = str(row.get("Name", "")).strip()
-        if not name or name.lower() == "nan":
+        name  = str(row.get("Name", "")).strip().upper()
+        if not name or name == "NAN":
             continue
 
         number      = str(row.get("Number", "")).strip()
@@ -228,7 +231,7 @@ def insert_results(cur, df, series_name, series_desc,
         except (ValueError, TypeError):
             points = None
 
-        racer_id = get_or_create_racer(cur, name, number, racer_city, racer_state, brand)
+        racer_id = get_or_create_racer(cur, name, racer_city, racer_state, brand)
 
         cur.execute(
             """INSERT INTO results
@@ -277,9 +280,9 @@ try:
     cur  = conn.cursor()
     print("Connected.\n")
 
-    cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
-    cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
-    print("Results and Racer tables cleared.\n")
+    # cur.execute("TRUNCATE TABLE results RESTART IDENTITY")
+    # cur.execute("TRUNCATE TABLE racer   RESTART IDENTITY CASCADE")
+    # print("Results and Racer tables cleared.\n")
 
     insert_results(
         cur, df_women,
