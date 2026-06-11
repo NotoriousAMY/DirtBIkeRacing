@@ -409,3 +409,22 @@ ORDER BY event_date;
 
 
 
+-- -------------------------------------------------------------
+-- Update SENECA to SENECA HIGHLANDS in event names
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = 'SENECA HIGHLANDS'
+WHERE event_name = 'SENECA' ;
+
+-- -------------------------------------------------------------
+-- Verify
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+WHERE event_name ILIKE '%SENECA%'
+ORDER BY event_date;
