@@ -386,3 +386,26 @@ SELECT
 FROM event
 WHERE event_name ILIKE '%AREA 51 MX%'
 ORDER BY event_date;
+
+-- -------------------------------------------------------------
+-- Update PAVILION HARE SCRAMBLE to WNYHS PAVILION in event names
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = 'WNYHS PAVILION'
+WHERE event_name = 'PAVILION HARE SCRAMBLE' ;
+
+-- -------------------------------------------------------------
+-- Verify
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+WHERE event_name ILIKE '%PAVILION HARE SCRAMBLE%'
+ORDER BY event_date;
+
+
+
