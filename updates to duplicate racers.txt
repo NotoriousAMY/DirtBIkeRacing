@@ -1,0 +1,172 @@
+-- =============================================================
+-- DirtBikeRacing Database - Data Cleanup Script
+-- Created: Amy M.
+-- Purpose: Deduplicate racer table, normalize names to UPPERCASE,
+--          fix double spaces, merge results to correct racer_id,
+--          standardize bike brand abbreviations across racer
+--          and results tables, normalize city to UPPERCASE.
+-- =============================================================
+
+
+-- -------------------------------------------------------------
+-- SECTION 1: Fix double spaces in racer names
+-- -------------------------------------------------------------
+UPDATE racer
+SET racer_name = REGEXP_REPLACE(racer_name, '\s+', ' ', 'g');
+
+
+-- -------------------------------------------------------------
+-- SECTION 2: Update results to point to the best racer_id
+--            Keeps row with most complete data (city, state, bike)
+--            and lowest racer_id as tiebreaker
+-- -------------------------------------------------------------
+UPDATE results
+SET racer_id = (
+    SELECT r2.racer_id
+    FROM racer r2
+    WHERE UPPER(REGEXP_REPLACE(r2.racer_name, '\s+', ' ', 'g')) =
+          UPPER(REGEXP_REPLACE(
+              (SELECT racer_name FROM racer WHERE racer_id = results.racer_id),
+              '\s+', ' ', 'g'))
+    ORDER BY
+        CASE WHEN r2.racer_city  IS NOT NULL THEN 0 ELSE 1 END,
+        CASE WHEN r2.racer_state IS NOT NULL THEN 0 ELSE 1 END,
+        CASE WHEN r2.racer_bike  IS NOT NULL THEN 0 ELSE 1 END,
+        r2.racer_id ASC
+    LIMIT 1
+);
+
+
+-- -------------------------------------------------------------
+-- SECTION 3: Delete duplicate racer rows
+--            Keeps only the most complete row per racer
+-- -------------------------------------------------------------
+DELETE FROM racer
+WHERE racer_id NOT IN (
+    SELECT DISTINCT ON (UPPER(REGEXP_REPLACE(racer_name, '\s+', ' ', 'g'))) racer_id
+    FROM racer
+    ORDER BY
+        UPPER(REGEXP_REPLACE(racer_name, '\s+', ' ', 'g')),
+        CASE WHEN racer_city  IS NOT NULL THEN 0 ELSE 1 END,
+        CASE WHEN racer_state IS NOT NULL THEN 0 ELSE 1 END,
+        CASE WHEN racer_bike  IS NOT NULL THEN 0 ELSE 1 END,
+        racer_id ASC
+);
+
+
+-- -------------------------------------------------------------
+-- SECTION 4: Normalize racer names to UPPERCASE
+--            and fix any remaining double spaces
+-- -------------------------------------------------------------
+UPDATE racer
+SET racer_name = UPPER(REGEXP_REPLACE(racer_name, '\s+', ' ', 'g'));
+
+
+-- -------------------------------------------------------------
+-- SECTION 5: Normalize racer city to UPPERCASE
+-- -------------------------------------------------------------
+UPDATE racer
+SET racer_city = UPPER(racer_city)
+WHERE racer_city IS NOT NULL;
+
+
+-- -------------------------------------------------------------
+-- SECTION 6: Fix Amy Masters specific duplicates
+--            racer_ids 22 and 64 merged into racer_id 4
+-- -------------------------------------------------------------
+UPDATE results
+SET racer_id = 4
+WHERE racer_id IN (22, 64);
+
+DELETE FROM racer
+WHERE racer_id IN (22, 64);
+
+UPDATE racer
+SET racer_city = UPPER(racer_city)
+WHERE racer_id = 4;
+
+
+-- -------------------------------------------------------------
+-- SECTION 7: Standardize bike brand abbreviations in racer table
+-- -------------------------------------------------------------
+UPDATE racer SET racer_bike = 'HON' WHERE racer_bike ILIKE 'Honda';
+UPDATE racer SET racer_bike = 'KTM' WHERE racer_bike ILIKE 'KTM';
+UPDATE racer SET racer_bike = 'KAW' WHERE racer_bike ILIKE 'Kawasaki';
+UPDATE racer SET racer_bike = 'YAM' WHERE racer_bike ILIKE 'Yamaha';
+UPDATE racer SET racer_bike = 'HUS' WHERE racer_bike ILIKE '%husqvarna%';
+UPDATE racer SET racer_bike = 'HUS' WHERE racer_bike ILIKE 'Husky';
+UPDATE racer SET racer_bike = 'SUZ' WHERE racer_bike ILIKE 'Suzuki';
+UPDATE racer SET racer_bike = 'GAS' WHERE racer_bike ILIKE 'Gas Gas';
+
+
+-- -------------------------------------------------------------
+-- SECTION 8: Standardize bike brand abbreviations in results table
+-- -------------------------------------------------------------
+UPDATE results SET brand = 'HON' WHERE brand ILIKE 'Honda';
+UPDATE results SET brand = 'KAW' WHERE brand ILIKE 'Kawasaki';
+UPDATE results SET brand = 'YAM' WHERE brand ILIKE 'Yamaha';
+UPDATE results SET brand = 'HUS' WHERE brand ILIKE '%husqvarna%';
+UPDATE results SET brand = 'HUS' WHERE brand ILIKE 'Husky';
+UPDATE results SET brand = 'SUZ' WHERE brand ILIKE 'Suzuki';
+UPDATE results SET brand = 'GAS' WHERE brand ILIKE 'Gas Gas';
+
+
+-- -------------------------------------------------------------
+-- SECTION 9: Drop racer_number column - number stored per
+--            result in results table not on the racer record
+-- -------------------------------------------------------------
+ALTER TABLE racer DROP COLUMN IF EXISTS racer_number;
+
+
+-- =============================================================
+-- VERIFICATION QUERIES - Run after cleanup to confirm results
+-- =============================================================
+
+-- Should return no rows if all duplicates are resolved
+SELECT 
+    UPPER(racer_name)    AS racer_name_upper,
+    COUNT(*)             AS duplicate_count
+FROM racer
+GROUP BY UPPER(racer_name)
+HAVING COUNT(*) > 1;
+
+-- Should return no rows if no double spaces remain
+SELECT racer_id, racer_name
+FROM racer
+WHERE racer_name LIKE '%  %';
+
+-- Check brand consistency in racer table
+SELECT DISTINCT racer_bike 
+FROM racer 
+ORDER BY racer_bike;
+
+-- Check brand consistency in results table
+SELECT DISTINCT brand 
+FROM results 
+ORDER BY brand;
+
+-- Spot check key competitors
+SELECT 
+    racer_id,
+    racer_name,
+    racer_city,
+    racer_state,
+    racer_bike
+FROM racer
+WHERE racer_name IN (
+    'AMY MASTERS',
+    'ASHLEY OCONNOR',
+    'CARLEY FENNER',
+    'DESTRIE DIETEMAN',
+    'EMILY WARFALE',
+    'ERIN HARPER',
+    'JULIA GOWKA',
+    'KARYN LACHUT',
+    'KELSEY MURDOCK'
+)
+ORDER BY racer_name;
+
+-- Final row counts
+SELECT COUNT(*) AS total_racers  FROM racer;
+SELECT COUNT(*) AS total_results FROM results;
+SELECT COUNT(*) AS total_events  FROM event;
