@@ -5,6 +5,8 @@
 --          fix double spaces, merge results to correct racer_id,
 --          standardize bike brand abbreviations across racer
 --          and results tables, normalize city to UPPERCASE.
+--            
+--        Also fixes event naming inconsistencies 
 -- =============================================================
 
 
@@ -170,3 +172,217 @@ ORDER BY racer_name;
 SELECT COUNT(*) AS total_racers  FROM racer;
 SELECT COUNT(*) AS total_results FROM results;
 SELECT COUNT(*) AS total_events  FROM event;
+
+
+
+
+-- -------------------------------------------------------------
+-- Normalize event names to UPPERCASE
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = UPPER(event_name);
+
+-- Normalize event location to UPPERCASE
+UPDATE event
+SET location = UPPER(location);
+
+-- Normalize event city to UPPERCASE
+UPDATE event
+SET city = UPPER(city)
+WHERE city IS NOT NULL;
+
+-- Normalize event state to UPPERCASE
+UPDATE event
+SET state = UPPER(state)
+WHERE state IS NOT NULL;
+
+-- -------------------------------------------------------------
+-- Check for duplicate events after normalization
+-- -------------------------------------------------------------
+SELECT 
+    event_name,
+    event_date,
+    COUNT(*) AS duplicate_count
+FROM event
+GROUP BY event_name, event_date
+HAVING COUNT(*) > 1
+ORDER BY event_name;
+
+-- -------------------------------------------------------------
+-- Preview all events to verify
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    location,
+    city,
+    state
+FROM event
+ORDER BY event_date;
+
+
+
+
+-- -------------------------------------------------------------
+-- Normalize event names ending in BIKE or BIKES to BIKES
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = REGEXP_REPLACE(event_name, '\sBIKE$', ' BIKES', 'i')
+WHERE event_name ILIKE '%BIKE';
+
+-- -------------------------------------------------------------
+-- Verify the fix
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+WHERE event_name ILIKE '%BIKES%'
+ORDER BY event_date;
+
+-- -------------------------------------------------------------
+-- Check for duplicates after normalization
+-- -------------------------------------------------------------
+SELECT 
+    event_name,
+    event_date,
+    COUNT(*) AS duplicate_count
+FROM event
+GROUP BY event_name, event_date
+HAVING COUNT(*) > 1
+ORDER BY event_name;
+
+
+
+
+
+-- -------------------------------------------------------------
+-- Remove BIKES or BIKE from end of event names
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = TRIM(REGEXP_REPLACE(event_name, '\sBIKES?$', '', 'i'))
+WHERE event_name ~* '\sBIKES?$';
+
+-- -------------------------------------------------------------
+-- Verify the fix
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+ORDER BY event_date;
+
+-- -------------------------------------------------------------
+-- Check for duplicates after normalization
+-- -------------------------------------------------------------
+SELECT 
+    event_name,
+    event_date,
+    COUNT(*) AS duplicate_count
+FROM event
+GROUP BY event_name, event_date
+HAVING COUNT(*) > 1
+ORDER BY event_name;
+
+
+sql-- -------------------------------------------------------------
+-- Preview: Find event names that match when trailing S removed
+-- -------------------------------------------------------------
+SELECT 
+    e1.event_id     AS event_id_1,
+    e1.event_name   AS event_name_1,
+    e1.event_date   AS event_date_1,
+    e2.event_id     AS event_id_2,
+    e2.event_name   AS event_name_2,
+    e2.event_date   AS event_date_2
+FROM event e1
+JOIN event e2 
+    ON e1.event_id < e2.event_id
+    AND (
+        e1.event_name = LEFT(e2.event_name, LENGTH(e2.event_name) - 1)
+        OR
+        e2.event_name = LEFT(e1.event_name, LENGTH(e1.event_name) - 1)
+    )
+ORDER BY e1.event_name;
+
+
+-- -------------------------------------------------------------
+-- Standardize DITCH BANGERS to DITCH BANGER
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = 'DITCH BANGER'
+WHERE event_name = 'DITCH BANGERS';
+
+-- -------------------------------------------------------------
+-- Verify
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+WHERE event_name ILIKE '%ditch%'
+ORDER BY event_date;
+
+-- -------------------------------------------------------------
+-- Final duplicate check
+-- -------------------------------------------------------------
+SELECT 
+    event_name,
+    event_date,
+    COUNT(*) AS duplicate_count
+FROM event
+GROUP BY event_name, event_date
+HAVING COUNT(*) > 1
+ORDER BY event_name;
+
+
+
+-- -------------------------------------------------------------
+-- Update BTR to BERKSHIRE in event names
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = REPLACE(event_name, 'BTR', 'BALDWIN')
+WHERE event_name ILIKE '%BTR%';
+
+-- -------------------------------------------------------------
+-- Verify
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+WHERE event_name ILIKE '%BALDWIN%'
+ORDER BY event_date;
+
+-- -------------------------------------------------------------
+-- Update AREA 51 MX to WNYHS AREA 51 in event names
+-- -------------------------------------------------------------
+UPDATE event
+SET event_name = 'WNYHS AREA 51'
+WHERE event_name = 'AREA 51 MX' ;
+
+-- -------------------------------------------------------------
+-- Verify
+-- -------------------------------------------------------------
+SELECT 
+    event_id,
+    event_name,
+    event_date,
+    city,
+    state
+FROM event
+WHERE event_name ILIKE '%AREA 51 MX%'
+ORDER BY event_date;
