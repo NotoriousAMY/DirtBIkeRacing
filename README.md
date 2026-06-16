@@ -5,9 +5,8 @@ Contents:
 1. Conceptual Data Model - contains the business logic for the project
 2. Logical Data Model & ERD Diagram (created in dbdiagram.io)
 3. Physical Data Model
-4. ERD pdf
-5. Data Files: PDFs, db_config.txt
-6. SQL Code
-7. Python Scripts (Written with Claude Ai)
-8. Postgres Database
-9.  Currently Being Made - Power BI .pbix file to display data
+4. Data Files: PDFs, db_config.txt
+5. SQL Code
+6. Python Scripts (Written with Claude Ai)
+7. Postgres Database
+8.  Currently Being Made - Power BI .pbix file to display data
