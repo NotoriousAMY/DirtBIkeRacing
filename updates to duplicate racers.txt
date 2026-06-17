@@ -428,3 +428,172 @@ SELECT
 FROM event
 WHERE event_name ILIKE '%SENECA%'
 ORDER BY event_date;
+
+
+
+
+
+-- -------------------------------------------------------------
+-- Mismatch with First Last and Last, First Names 
+-- Keep the first instance and then the location and bike 
+-- -------------------------------------------------------------
+
+SELECT
+    racer_id,
+    racer_name AS old_name,
+    TRIM(split_part(racer_name, ',', 2)) || ' ' || TRIM(split_part(racer_name, ',', 1)) AS new_name
+FROM racer
+WHERE racer_name LIKE '%,%';
+
+
+SELECT
+    CASE WHEN racer_name LIKE '%,%'
+         THEN TRIM(split_part(racer_name, ',', 2)) || ' ' || TRIM(split_part(racer_name, ',', 1))
+         ELSE racer_name
+    END AS normalized_name,
+    array_agg(racer_id ORDER BY racer_id) AS racer_ids
+FROM racer
+GROUP BY normalized_name
+HAVING COUNT(*) > 1;
+
+
+UPDATE racer
+SET racer_name = TRIM(split_part(racer_name, ',', 2)) || ' ' || TRIM(split_part(racer_name, ',', 1))
+WHERE racer_name LIKE '%,%';
+
+
+UPDATE racer
+SET racer_name = regexp_replace(racer_name, '\s+', ' ', 'g')
+WHERE racer_name ~ '\s{2,}';
+
+WITH dupes AS (
+    SELECT racer_name, MIN(racer_id) AS keep_id, array_agg(racer_id) AS all_ids
+    FROM racer
+    GROUP BY racer_name
+    HAVING COUNT(*) > 1
+),
+to_merge AS (
+    SELECT keep_id, unnest(all_ids) AS drop_id
+    FROM dupes
+)
+UPDATE results r
+SET racer_id = tm.keep_id
+FROM to_merge tm
+WHERE r.racer_id = tm.drop_id
+  AND tm.drop_id <> tm.keep_id;
+
+-- STEP 6: Delete the now-redundant duplicate racer rows
+WITH dupes AS (
+    SELECT racer_name, MIN(racer_id) AS keep_id, array_agg(racer_id) AS all_ids
+    FROM racer
+    GROUP BY racer_name
+    HAVING COUNT(*) > 1
+)
+DELETE FROM racer
+WHERE racer_id IN (SELECT unnest(all_ids) FROM dupes)
+  AND racer_id NOT IN (SELECT keep_id FROM dupes);
+
+
+SELECT racer_id, racer_name, racer_city, racer_state, racer_bike
+FROM racer
+ORDER BY racer_name;
+
+
+
+
+
+
+WITH completeness AS (
+    SELECT
+        racer_id,
+        racer_name,
+        racer_city,
+        racer_state,
+        racer_bike,
+        (CASE WHEN racer_city  IS NOT NULL AND racer_city  <> '' THEN 1 ELSE 0 END +
+         CASE WHEN racer_state IS NOT NULL AND racer_state <> '' THEN 1 ELSE 0 END +
+         CASE WHEN racer_bike  IS NOT NULL AND racer_bike  <> '' THEN 1 ELSE 0 END) AS score
+    FROM racer
+),
+ranked AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (PARTITION BY racer_name ORDER BY score DESC, racer_id ASC) AS rn
+    FROM completeness
+)
+SELECT racer_id, racer_name, racer_city, racer_state, racer_bike, score,
+       CASE WHEN rn = 1 THEN 'KEEP' ELSE 'DROP' END AS action
+FROM ranked
+WHERE racer_name IN (
+    SELECT racer_name FROM ranked GROUP BY racer_name HAVING COUNT(*) > 1
+)
+ORDER BY racer_name, rn;
+
+
+UPDATE racer
+SET racer_name = TRIM(split_part(racer_name, ',', 2)) || ' ' || TRIM(split_part(racer_name, ',', 1))
+WHERE racer_name LIKE '%,%';
+
+
+UPDATE racer
+SET racer_name = regexp_replace(racer_name, '\s+', ' ', 'g')
+WHERE racer_name ~ '\s{2,}';
+
+WITH completeness AS (
+    SELECT
+        racer_id,
+        racer_name,
+        (CASE WHEN racer_city  IS NOT NULL AND racer_city  <> '' THEN 1 ELSE 0 END +
+         CASE WHEN racer_state IS NOT NULL AND racer_state <> '' THEN 1 ELSE 0 END +
+         CASE WHEN racer_bike  IS NOT NULL AND racer_bike  <> '' THEN 1 ELSE 0 END) AS score
+    FROM racer
+),
+ranked AS (
+    SELECT
+        racer_id,
+        racer_name,
+        ROW_NUMBER() OVER (PARTITION BY racer_name ORDER BY score DESC, racer_id ASC) AS rn
+    FROM completeness
+),
+keep_map AS (
+    SELECT racer_name, racer_id AS keep_id FROM ranked WHERE rn = 1
+),
+to_merge AS (
+    SELECT km.keep_id, r.racer_id AS drop_id
+    FROM ranked r
+    JOIN keep_map km ON km.racer_name = r.racer_name
+    WHERE r.rn > 1
+)
+UPDATE results res
+SET racer_id = tm.keep_id
+FROM to_merge tm
+WHERE res.racer_id = tm.drop_id;
+
+
+WITH completeness AS (
+    SELECT
+        racer_id,
+        racer_name,
+        (CASE WHEN racer_city  IS NOT NULL AND racer_city  <> '' THEN 1 ELSE 0 END +
+         CASE WHEN racer_state IS NOT NULL AND racer_state <> '' THEN 1 ELSE 0 END +
+         CASE WHEN racer_bike  IS NOT NULL AND racer_bike  <> '' THEN 1 ELSE 0 END) AS score
+    FROM racer
+),
+ranked AS (
+    SELECT
+        racer_id,
+        ROW_NUMBER() OVER (PARTITION BY racer_name ORDER BY score DESC, racer_id ASC) AS rn
+    FROM completeness
+)
+DELETE FROM racer
+WHERE racer_id IN (SELECT racer_id FROM ranked WHERE rn > 1);
+
+
+
+
+SELECT racer_id, racer_name, racer_city, racer_state, racer_bike
+FROM racer
+ORDER BY racer_name;
+
+
+
