@@ -9,4 +9,5 @@ Contents:
 5. SQL Code
 6. Python Scripts (Written with Claude Ai)
 7. Postgres Database
-8.  Currently Being Made - Power BI .pbix file to display data
+8.  Power BI Report (.pbix file) 
+9. Video of Power Bi Report 
