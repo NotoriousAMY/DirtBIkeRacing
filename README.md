@@ -10,4 +10,4 @@ Contents:
 6. Python Scripts (Written with Claude Ai)
 7. Postgres Database
 8.  Power BI Report (.pbix file) 
-9. Video of Power Bi Report 
+9. screenshots
