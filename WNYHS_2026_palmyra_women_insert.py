@@ -32,7 +32,7 @@ EVENTS = [
         "location": "Palmyra, NY",
         "rows": [
             {"Place": "1",   "Number": "9015", "Name": "MATTIE SIMS",        "Location": "Duncannon, PA",       "Brand": "KTM", "Laps": "4", "Time": "01:44:10"},
-            {"Place": "2",   "Number": "9003", "Name": "KELSEY MURDOCK",     "Location": "Cortland, NY",        "Brand": "KTM", "Laps": "4", "Time": "01:54:04"},
+            {"Place": "2",   "Number": "9003", "Name": "KELSEY MURDOCK",     "Location": "Groton, NY",          "Brand": "KTM", "Laps": "4", "Time": "01:54:04"},
             {"Place": "3",   "Number": "9009", "Name": "EMILY HOFFMAN",      "Location": "Millport, NY",        "Brand": "HON", "Laps": "4", "Time": "01:55:35"},
             {"Place": "4",   "Number": "9006", "Name": "ERIN HARPER",        "Location": "St. Catharines, ON",  "Brand": "KTM", "Laps": "4", "Time": "01:55:40"},
             {"Place": "5",   "Number": "9018", "Name": "COLLINS HOFFMAN",    "Location": "",                    "Brand": "KTM", "Laps": "3", "Time": "01:30:32"},
