@@ -155,7 +155,6 @@ def insert_event_results(cur, rows, event, event_id, class_id):
     inserted = 0
     for row in rows:
         name   = row.get("Name",   "").strip().upper()
-        number = row.get("Number", "").strip()
         brand  = row.get("Brand",  "").strip() or None
 
         if not name:
@@ -182,10 +181,10 @@ def insert_event_results(cur, rows, event, event_id, class_id):
         cur.execute(
             """INSERT INTO results
                (racer_id, event_id, class_id, place, place_numeric,
-                laps, finish_time, points_earned, brand, number)
-               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+                laps, finish_time, points_earned, brand)
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
             (racer_id, event_id, class_id, place, place_numeric,
-             laps, finish_time, None, brand, number)
+             laps, finish_time, None, brand)
         )
         inserted += 1
 
@@ -193,11 +192,14 @@ def insert_event_results(cur, rows, event, event_id, class_id):
 
 # -------------------------------------------------------
 # Run
+#   Default (no argument / Sublime build) -> uses MODE below
 #   python WNYHS_2026_palmyra_women_insert.py csv     -> write review CSV only
 #   python WNYHS_2026_palmyra_women_insert.py insert  -> load into PostgreSQL
 # -------------------------------------------------------
 if __name__ == "__main__":
-    mode = sys.argv[1].lower() if len(sys.argv) > 1 else "csv"
+    # Change to "csv" to only write the review CSV
+    MODE = "insert"
+    mode = sys.argv[1].lower() if len(sys.argv) > 1 else MODE
 
     if mode == "csv":
         export_csv(CSV_PATH)
